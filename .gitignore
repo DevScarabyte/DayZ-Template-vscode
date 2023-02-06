@@ -14,7 +14,6 @@ DayZExpansion/Scripts/thing.obf
 user.cfg
 
 # Text Editor Workspace Configuration
-.vscode/
 .idea/
 
 # Server Profile Folder

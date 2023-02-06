@@ -1,0 +1,376 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "options": {
+		"shell": {
+			"executable": "cmd.exe",
+			"args": [
+				"/d", "/c"
+			]
+		}
+	},
+    "tasks": [
+        {
+            "label": "[Build] Normal DayZ Mod",
+            "type": "shell",
+            "command": "${config:dayz.mikero.pboproject}",
+            "args": [
+                "-P",
+                "-L=${workspaceFolderBasename}",
+                "+mod=${config:dayz.server_dir}\\${config:dayz.mikero.localmod}\\${config:dayz.test_mod}",
+                "${workspaceFolder}"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "none",
+                "isDefault": "config.cpp"
+            },
+            "presentation": {
+                "reveal": "never",
+                "panel": "shared",
+                "showReuseMessage": false,
+                "echo": true
+            },
+            "dependsOn": [
+                "[Helper] DayZ Server/Client Sessions"
+            ]
+        },
+        {
+            "label": "[Build] Complete DayZ Mod",
+            "type": "shell",
+            "command": "echo ${input:terminate}",
+            "problemMatcher": [],
+            "group": {
+                "kind": "none",
+                "isDefault": "**.c"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "[Helper] DayZ Server/Client Sessions",
+                "[Build] DayZ Mod (Server)",
+                "[Build] DayZ Mod (Client)"
+            ]
+        },
+        {
+            "label": "[Build] DayZ Mod (Server)",
+            "type": "shell",
+            "command": "${config:dayz.mikero.pboproject}",
+            "args": [
+                "-P",
+                "-L=${workspaceFolderBasename}Server",
+                "+mod=${config:dayz.server_dir}\\${config:dayz.mikero.localmod}\\${config:dayz.mikero.compile}Server",
+                "${workspaceFolder}\\Server"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "none",
+                "isDefault": "config.cpp"
+            },
+            "presentation": {
+                "reveal": "never",
+                "panel": "shared",
+                "showReuseMessage": false,
+                "echo": true
+            },
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "[Helper] Check Server File",
+            ]
+        },
+        {
+            "label": "[Build] DayZ Mod (Client)",
+            "type": "shell",
+            "command": "${config:dayz.mikero.pboproject}",
+            "args": [
+                "-P",
+                "-L=${workspaceFolderBasename}Client",
+                "+mod=${config:dayz.server_dir}\\${config:dayz.mikero.localmod}\\${config:dayz.mikero.compile}Client",
+                "${workspaceFolder}\\Client"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "none",
+                "isDefault": "config.cpp"
+            },
+            "presentation": {
+                "reveal": "never",
+                "panel": "shared",
+                "showReuseMessage": false,
+                "echo": true
+            },
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "[Helper] Check Client File",
+            ]
+        },
+        {
+            "label": "[Run] DayZ Server (Server)",
+            "type": "shell",
+            "command": "start",
+            "args": [
+                "\"DayZ Server\"",
+                "/min",
+                "${config:dayz.server_dir}\\DayZServer_x64.exe",
+                "-config=${config:dayz.server.launch.config}",
+                "-port=${config:dayz.server.launch.port}",
+                "-cpuCount=${config:dayz.server.launch.cpu}",
+                "-dologs",
+                "-adminlog",
+                "-netlog",
+                "-freezecheck",
+                "\"-mod=${config:dayz.server.launch.mods}\"",
+                "\"-serverMod=servermods\\@ScarabyteDevServer;\"",
+                "-filePatching",
+                "-profiles=${config:dayz.server.launch.profile}"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "none",
+                "isDefault": "**.c"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "echo": true
+            }
+        },
+        {
+            "label": "[Run] DayZ Server (Diag)",
+            "type": "shell",
+            "command": "start",
+            "args": [
+                "\"DayZ Server\"",
+                "/min",
+                "${config:dayz.client_dir}\\DayZDiag_x64.exe",
+                "-server",
+                "-config=${config:dayz.server.launch.config}",
+                "-port=${config:dayz.server.launch.port}",
+                "-cpuCount=${config:dayz.server.launch.cpu}",
+                "-dologs",
+                "-adminlog",
+                "-netlog",
+                "-freezecheck",
+                "\"-mod=${config:dayz.client.launch.mods}\"",
+                "\"-serverMod=${config:dayz.server_dir}\\servermods\\@ScarabyteDevServer;\"",
+                "-profiles=${config:dayz.server.launch.profile}",
+                "-mission=${config:dayz.server_dir}\\mpmissions\\${config:dayz.server.launch.mission}"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "none",
+                "isDefault": "**.c"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "echo": true
+            }
+        },
+        {
+            "label": "[Run] DayZ Client",
+            "type": "shell",
+            "command": "start",
+            "args": [
+                "\"DayZ Client\"",
+                "/min",
+                "${config:dayz.client_dir}\\DayZ_BE.exe",
+                "0 1 1",
+                "-exe DayZ_x64.exe",
+                "-noPause=2",
+                "\"-mod=${config:dayz.client.launch.mods}\"",
+                "-connect=127.0.0.1",
+                "-port=2302",
+                "-name=Scarabyte"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "none",
+                "isDefault": "**.c"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "echo": true
+            }
+        },
+        {
+            "label": "[Run] DayZ Client (Diag)",
+            "type": "shell",
+            "command": "start",
+            "args": [
+                "\"DayZ Client\"",
+                "/min",
+                "${config:dayz.client_dir}\\DayZDiag_x64.exe",
+                "-noPause=2",
+                "\"-mod=${config:dayz.client.launch.mods}\"",
+                "-connect=127.0.0.1",
+                "-port=2302",
+                "-name=Scarabyte"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "none",
+                "isDefault": "**.c"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "echo": true
+            }
+        },
+        {
+            "label": "[Build] mod and Run Server",
+            "type": "shell",
+            "command": "echo ${input:terminate}",
+            "problemMatcher": [],
+            "group": {
+                "kind": "none",
+                "isDefault": "**.c"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "[Build] Complete DayZ Mod",
+                "[Run] DayZ Server (Diag)"
+            ]
+        },
+        {
+            "label": "[Run] Server and Client",
+            "type": "process",
+            "command": "echo ${input:terminate}",
+            "problemMatcher": [],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "[Helper] DayZ Server/Client Clean up",
+                "[Run] DayZ Server (Diag)",
+                "[Helper] Sleep",
+                "[Run] DayZ Client (Diag)",
+                "[Helper] Get Server Log"
+            ]
+        },
+        {
+            "label": "[Helper] Clean Storage",
+            "type": "shell",
+            "command": "rmdir",
+            "args": [
+                "/s",
+                "/q",
+                "${config:dayz.server_dir}\\mpmissions\\${config:dayz.server.launch.mission}\\storage_1337"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "none",
+                "isDefault": "**.c"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "dependsOn": [
+                "[Helper] DayZ Server/Client Session"
+            ]
+        },
+        {
+            "label": "[Helper] DayZ Server/Client Sessions",
+            "type": "shell",
+            "command": "taskkill /im DayZServer_x64.exe /F & taskkill /im DayZ_x64.exe /F & taskkill /im DayZDiag_x64.exe /F & taskkill /im powershell.exe /F & echo 1",
+            "problemMatcher": [],
+            "group": {
+                "kind": "none",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "echo": true
+            }
+        },
+        {
+            "label": "[Helper] Get Server Log",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-command",
+                "& {Get-ChildItem \"${config:dayz.server_dir}\\profiles\" script*.log | Sort-Object -Descending -Property LastWriteTime | select -First 1 | Get-Content -wait -tail 10}"
+            ],
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "echo": true
+            }
+        },
+        {
+            "label": "[Helper] Check Client File",
+            "type": "shell",
+            "command": "IF EXIST \"${workspaceFolder}\\Client\\config.cpp\" (echo true) ELSE (echo false)",
+            "problemMatcher": [],
+            "group": {
+                "kind": "none",
+                "isDefault": "**.c"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "[Helper] Check Server File",
+            "type": "shell",
+            "command": "IF EXIST \"${workspaceFolder}\\Server\\config.cpp\" (echo true) ELSE (echo false)",
+            "problemMatcher": [],
+            "group": {
+                "kind": "none",
+                "isDefault": "**.c"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "[Helper] Sleep",
+            "type": "shell",
+            "command": "timeout 65",
+            "problemMatcher": [],
+            "group": {
+                "kind": "none",
+                "isDefault": "**.c"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+    ],
+    "inputs": [
+        {
+            "id": "selectDir",
+            "type": "pickString",
+            "description": "What directory to pack?",
+            "options": [
+                {"label": "Complete (Server and Client)", "value": "Build Complete DayZ Mod"},
+                {"label": "Normal (Both together)", "value": "Build Normal DayZ Mod"}
+            ]
+        },
+        {
+          "id": "terminate",
+          "type": "command",
+          "command": "workbench.action.tasks.terminate",
+          "args": "terminateAll"
+        }
+    ]
+}

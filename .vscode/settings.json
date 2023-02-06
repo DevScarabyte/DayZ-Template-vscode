@@ -1,0 +1,17 @@
+{
+    "dayz.server_dir": "E:\\SteamLibrary\\steamapps\\common\\DayZServer",
+    "dayz.client_dir": "F:\\SteamLibrary\\steamapps\\common\\DayZ",
+    "dayz.publish_dir": "P:\\Published\\${workspaceFolderBasename}",
+    "dayz.test_mod": "@ScarabyteDevClient",
+    "dayz.mikero.pboproject": "C:\\Program Files (x86)\\Mikero\\DePboTools\\bin\\pboProject.exe",
+    "dayz.mikero.localmod": "servermods",
+    "dayz.mikero.compile": "@ScarabyteDev",
+    "dayz.server.launch.config": "${config:dayz.server_dir}\\serverDZ.cfg",
+    "dayz.server.launch.port": "2302",
+    "dayz.server.launch.cpu": "2",
+    "dayz.server.launch.profile": "${config:dayz.server_dir}\\profiles",
+    "dayz.server.launch.mods": "${config:dayz.mikero.localmod}\\@CF;${config:dayz.mikero.localmod}\\@VPPAdmin;${config:dayz.mikero.localmod}\\@DabsFramework;${config:dayz.mikero.localmod}\\${config:dayz.test_mod};",
+    "dayz.client.launch.mods": "${config:dayz.server_dir}\\${config:dayz.mikero.localmod}\\@CF;${config:dayz.server_dir}\\${config:dayz.mikero.localmod}\\@VPPAdmin;${config:dayz.server_dir}\\${config:dayz.mikero.localmod}\\@DabsFramework;${config:dayz.server_dir}\\${config:dayz.mikero.localmod}\\${config:dayz.test_mod};",
+    "dayz.server.launch.mission": "dayzOffline.chernarusplus",
+    
+}
