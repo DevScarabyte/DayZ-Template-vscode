@@ -1,26 +1,25 @@
 
 class CfgPatches
 {
-	class ModTemplate_Scripts
+	class ModTemplateServer
 	{
         units[] = {};
         weapons[] = {};
         requiredVersion = 0.1;
-		requiredAddons[] = {"DZ_Scripts"};
+		requiredAddons[] = {"DZ_Scripts","ModTemplateClient"};
 	};
 };
 
 class CfgMods 
 {
-	class DZ_ModTemplate
+	class ModTemplateServer
 	{
-		name = "Mod Template";
-		dir = "ModTemplate";
+		name = "ModTemplateServer";
+		dir = "ModTemplateServer";
 		credits = "";
 		author = "";
-		creditsJson = "ModTemplate/Scripts/Data/Credits.json";
-		versionPath = "ModTemplate/Scripts/Data/Version.hpp";
-		inputs = "ModTemplate/Scripts/Data/Inputs.xml";
+		creditsJson = "ModTemplate/Server/Scripts/Data/Credits.json";
+		versionPath = "ModTemplate/Server/Scripts/Data/Version.hpp";
 		type = "mod";
 		dependencies[] =
 		{
@@ -37,8 +36,8 @@ class CfgMods
 				value = "";
 				files[] =
 				{
-					"ModTemplate/scripts/common",
-					"ModTemplate/scripts/1_core"
+					"ModTemplate/Server/scripts/common",
+					"ModTemplate/Server/scripts/1_core"
 				};
 			};
 
@@ -47,8 +46,8 @@ class CfgMods
 				value="";
 				files[] = 
 				{
-					"ModTemplate/scripts/common",
-					"ModTemplate/scripts/3_Game"
+					"ModTemplate/Server/scripts/common",
+					"ModTemplate/Server/scripts/3_Game"
 				};
 			};
 			class worldScriptModule
@@ -56,8 +55,8 @@ class CfgMods
 				value="";
 				files[] = 
 				{
-					"ModTemplate/scripts/common",
-					"ModTemplate/scripts/4_World"
+					"ModTemplate/Server/scripts/common",
+					"ModTemplate/Server/scripts/4_World"
 				};
 			};
 
@@ -66,8 +65,8 @@ class CfgMods
 				value="";
 				files[] = 
 				{
-					"ModTemplate/scripts/common",
-					"ModTemplate/scripts/5_Mission"
+					"ModTemplate/Server/scripts/common",
+					"ModTemplate/Server/scripts/5_Mission"
 				};
 			};
 		};

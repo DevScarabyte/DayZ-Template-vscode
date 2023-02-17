@@ -1,7 +1,7 @@
 
 class CfgPatches
 {
-	class ModTemplate_Scripts
+	class ModTemplateClient
 	{
         units[] = {};
         weapons[] = {};
@@ -12,15 +12,15 @@ class CfgPatches
 
 class CfgMods 
 {
-	class DZ_ModTemplate
+	class ModTemplateClient
 	{
-		name = "Mod Template";
-		dir = "ModTemplate";
+		name = "ModTemplateClient";
+		dir = "ModTemplateClient";
 		credits = "";
 		author = "";
-		creditsJson = "ModTemplate/Scripts/Data/Credits.json";
-		versionPath = "ModTemplate/Scripts/Data/Version.hpp";
-		inputs = "ModTemplate/Scripts/Data/Inputs.xml";
+		creditsJson = "ModTemplate/Client/Scripts/Data/Credits.json";
+		versionPath = "ModTemplate/Client/Scripts/Data/Version.hpp";
+		inputs = "ModTemplate/Client/Scripts/Data/Inputs.xml";
 		type = "mod";
 		dependencies[] =
 		{
@@ -37,8 +37,8 @@ class CfgMods
 				value = "";
 				files[] =
 				{
-					"ModTemplate/scripts/common",
-					"ModTemplate/scripts/1_core"
+					"ModTemplate/Client/scripts/common",
+					"ModTemplate/Client/scripts/1_core"
 				};
 			};
 
@@ -47,8 +47,8 @@ class CfgMods
 				value="";
 				files[] = 
 				{
-					"ModTemplate/scripts/common",
-					"ModTemplate/scripts/3_Game"
+					"ModTemplate/Client/scripts/common",
+					"ModTemplate/Client/scripts/3_Game"
 				};
 			};
 			class worldScriptModule
@@ -56,8 +56,8 @@ class CfgMods
 				value="";
 				files[] = 
 				{
-					"ModTemplate/scripts/common",
-					"ModTemplate/scripts/4_World"
+					"ModTemplate/Client/scripts/common",
+					"ModTemplate/Client/scripts/4_World"
 				};
 			};
 
@@ -66,8 +66,8 @@ class CfgMods
 				value="";
 				files[] = 
 				{
-					"ModTemplate/scripts/common",
-					"ModTemplate/scripts/5_Mission"
+					"ModTemplate/Client/scripts/common",
+					"ModTemplate/Client/scripts/5_Mission"
 				};
 			};
 		};
